@@ -1,4 +1,4 @@
-name: Next Deployment
+name: BTLweb Deployment
 
 on:
   push:
