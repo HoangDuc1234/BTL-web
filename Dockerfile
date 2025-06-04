@@ -1,20 +1,18 @@
-FROM node:18-alpine
+FROM node:18
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy everything
+COPY . .
 
 # Install dependencies
 RUN npm install
+RUN npm install react-scripts
 
-# Copy source code
-COPY . .
-
-# Set NODE_OPTIONS for OpenSSL legacy provider
+# Set NODE_OPTIONS
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
-# Build the application
+# Build
 RUN npm run build
 
 EXPOSE 3000
