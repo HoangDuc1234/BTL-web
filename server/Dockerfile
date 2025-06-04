@@ -12,8 +12,7 @@ RUN npm install
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
 # Build
-RUN npm run build 
 
-EXPOSE 3001
+EXPOSE 3434
 
 CMD ["npm", "start"]
