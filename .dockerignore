@@ -17,4 +17,3 @@ dist
 *.swp
 *.swo
 *~
-package-lock.json

@@ -5,14 +5,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Clear npm cache and install dependencies
-RUN npm cache clean --force
-RUN npm ci --verbose
-
-# Verify react-scripts installation
-RUN npm list react-scripts
-RUN which react-scripts || echo "react-scripts not in PATH"
-RUN ls -la node_modules/.bin/react-scripts || echo "react-scripts binary not found"
+# Install dependencies
+RUN npm install
 
 # Copy source code
 COPY . .
