@@ -10,7 +10,7 @@ const productReducer = async (state = initialState, action) => {
       let products;
       await axios({
         method: "get",
-        url: `${process.env.REACT_APP_BACKEND_URL}/api/products?page=1`,
+        url: `${"localhost:3434"}/api/products?page=1`,
         responseType: "stream",
       }).then(function (response) {
         // console.log(response.data);

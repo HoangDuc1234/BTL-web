@@ -1,9 +1,9 @@
-import axios from 'axios';
-import store from '../redux';
+import axios from "axios";
+import store from "../redux";
 // import axios from "../axios";
-import { updateUserInfo } from '../store/actions/adminActions';
+import { updateUserInfo } from "../store/actions/adminActions";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3434';
+const API_URL = "localhost:3434" || "http://localhost:3434";
 
 // Helper function to get the access token from Redux state
 const getAccessTokenFromRedux = () => {
@@ -23,7 +23,10 @@ const refreshAccessToken = async () => {
     if (response.data && response.data.accessToken) {
       // Update the access token in Redux
       const state = store.getState();
-      const userInfo = { ...state.admin.userInfo, accessToken: response.data.accessToken };
+      const userInfo = {
+        ...state.admin.userInfo,
+        accessToken: response.data.accessToken,
+      };
       store.dispatch(updateUserInfo(userInfo));
 
       return response.data.accessToken;
@@ -31,7 +34,7 @@ const refreshAccessToken = async () => {
 
     return null;
   } catch (error) {
-    console.error('Error refreshing access token:', error);
+    console.error("Error refreshing access token:", error);
     return null;
   }
 };
@@ -39,7 +42,7 @@ const refreshAccessToken = async () => {
 // Create an axios instance with interceptors
 const axiosInstance = axios.create({
   baseURL: API_URL,
-  withCredentials: true
+  withCredentials: true,
 });
 
 // Add a response interceptor to handle token expiration
@@ -49,12 +52,13 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     // If the error is due to an expired token and we haven't tried to refresh yet
-    if (error.response &&
-        error.response.status === 403 &&
-        error.response.data &&
-        error.response.data.refresh === true &&
-        !originalRequest._retry) {
-
+    if (
+      error.response &&
+      error.response.status === 403 &&
+      error.response.data &&
+      error.response.data.refresh === true &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
 
       // Try to refresh the token
@@ -62,7 +66,7 @@ axiosInstance.interceptors.response.use(
 
       if (newAccessToken) {
         // Update the authorization header with the new token
-        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
 
         // Retry the original request
         return axiosInstance(originalRequest);
@@ -89,7 +93,7 @@ export const addItemToCart = async (cartItem) => {
     if (!accessToken) {
       return {
         success: false,
-        error: 'User not authenticated'
+        error: "User not authenticated",
       };
     }
 
@@ -97,26 +101,23 @@ export const addItemToCart = async (cartItem) => {
     // The server will extract it from the JWT token
     const { user_id, ...itemData } = cartItem;
 
-    const response = await axiosInstance.post(
-      '/api/cart/add',
-      itemData,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-        }
-      }
-    );
+    const response = await axiosInstance.post("/api/cart/add", itemData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     return {
       success: true,
-      data: response.data
+      data: response.data,
     };
   } catch (error) {
-    console.error('Error adding item to cart:', error);
+    console.error("Error adding item to cart:", error);
     return {
       success: false,
-      error: error.response?.data?.error || 'Lỗi khi thêm sản phẩm vào giỏ hàng'
+      error:
+        error.response?.data?.error || "Lỗi khi thêm sản phẩm vào giỏ hàng",
     };
   }
 };
@@ -133,28 +134,25 @@ export const getCart = async () => {
     if (!accessToken) {
       return {
         success: false,
-        error: 'User not authenticated'
+        error: "User not authenticated",
       };
     }
 
-    const response = await axiosInstance.get(
-      '/api/cart',
-      {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      }
-    );
+    const response = await axiosInstance.get("/api/cart", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     return {
       success: true,
-      data: response.data
+      data: response.data,
     };
   } catch (error) {
-    console.error('Error getting cart:', error);
+    console.error("Error getting cart:", error);
     return {
       success: false,
-      error: error.response?.data?.error || 'Lỗi khi lấy thông tin giỏ hàng'
+      error: error.response?.data?.error || "Lỗi khi lấy thông tin giỏ hàng",
     };
   }
 };
@@ -175,33 +173,30 @@ export const updateCartItem = async (cartItem) => {
     if (!accessToken) {
       return {
         success: false,
-        error: 'User not authenticated'
+        error: "User not authenticated",
       };
     }
 
-
     const { user_id, ...itemData } = cartItem;
 
-    const response = await axiosInstance.put(
-      '/api/cart/update',
-      itemData,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-        }
-      }
-    );
+    const response = await axiosInstance.put("/api/cart/update", itemData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     return {
       success: true,
-      data: response.data
+      data: response.data,
     };
   } catch (error) {
-    console.error('Error updating cart item:', error);
+    console.error("Error updating cart item:", error);
     return {
       success: false,
-      error: error.response?.data?.error || 'Lỗi khi cập nhật sản phẩm trong giỏ hàng'
+      error:
+        error.response?.data?.error ||
+        "Lỗi khi cập nhật sản phẩm trong giỏ hàng",
     };
   }
 };
@@ -219,28 +214,26 @@ export const removeCartItem = async (itemId) => {
     if (!accessToken) {
       return {
         success: false,
-        error: 'User not authenticated'
+        error: "User not authenticated",
       };
     }
 
-    const response = await axiosInstance.delete(
-      `/api/cart/remove/${itemId}`,
-      {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      }
-    );
+    const response = await axiosInstance.delete(`/api/cart/remove/${itemId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     return {
       success: true,
-      data: response.data
+      data: response.data,
     };
   } catch (error) {
-    console.error('Error removing cart item:', error);
+    console.error("Error removing cart item:", error);
     return {
       success: false,
-      error: error.response?.data?.error || 'Lỗi khi xóa sản phẩm khỏi giỏ hàng'
+      error:
+        error.response?.data?.error || "Lỗi khi xóa sản phẩm khỏi giỏ hàng",
     };
   }
 };
@@ -257,29 +250,26 @@ export const clearCart = async () => {
     if (!accessToken) {
       return {
         success: false,
-        error: 'User not authenticated'
+        error: "User not authenticated",
       };
     }
 
-    const response = await axios.delete(
-      `${API_URL}/api/cart/clear`,
-      {
-        withCredentials: true,
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      }
-    );
+    const response = await axios.delete(`${API_URL}/api/cart/clear`, {
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     return {
       success: true,
-      data: response.data
+      data: response.data,
     };
   } catch (error) {
-    console.error('Error clearing cart:', error);
+    console.error("Error clearing cart:", error);
     return {
       success: false,
-      error: error.response?.data?.error || 'Lỗi khi xóa giỏ hàng'
+      error: error.response?.data?.error || "Lỗi khi xóa giỏ hàng",
     };
   }
 };

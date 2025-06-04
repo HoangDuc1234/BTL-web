@@ -51,15 +51,11 @@ const ItemShop = (props) => {
     // console.log(file);
     await LoginHack;
     await axios
-      .post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/utils/store/image/upload`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
-          },
-        }
-      )
+      .post(`${"localhost:3434"}/api/utils/store/image/upload`, formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
+        },
+      })
       .then(function (response) {
         image_url = response.data.url;
       })
@@ -69,7 +65,7 @@ const ItemShop = (props) => {
     // console.log(image_url);
     await axios
       .post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/products/add-item/${props.product_id}`,
+        `${"localhost:3434"}/api/products/add-item/${props.product_id}`,
         {
           price,
           stock,

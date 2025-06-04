@@ -21,7 +21,7 @@ const ItemManage = (props) => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `${process.env.REACT_APP_BACKEND_URL}/api/products/item/${product_id}`,
+      url: `${"localhost:3434"}/api/products/item/${product_id}`,
     }).then((response) => {
       if (isMountedRef.current) {
         response && setItems(response.data);

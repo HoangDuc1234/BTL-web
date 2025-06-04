@@ -1,7 +1,7 @@
-import axios from 'axios';
-import store from '../redux';
+import axios from "axios";
+import store from "../redux";
 
-const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3434';
+const API_URL = "localhost:3434" || "http://localhost:3434";
 
 // Helper function to get the access token from Redux state
 const getAccessTokenFromRedux = () => {
@@ -12,7 +12,7 @@ const getAccessTokenFromRedux = () => {
 // Create an axios instance with interceptors
 const axiosInstance = axios.create({
   baseURL: API_URL,
-  withCredentials: true
+  withCredentials: true,
 });
 
 // Add a request interceptor to include the authorization header
@@ -20,7 +20,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const accessToken = getAccessTokenFromRedux();
     if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`;
+      config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -43,19 +43,19 @@ axiosInstance.interceptors.request.use(
 export const createOrder = async (orderData) => {
   try {
     const response = await axiosInstance.post(
-      '/api/order/create-order',
+      "/api/order/create-order",
       orderData
     );
 
     return {
       success: true,
-      data: response.data
+      data: response.data,
     };
   } catch (error) {
-    console.error('Error creating order:', error);
+    console.error("Error creating order:", error);
     return {
       success: false,
-      error: error.response?.data?.message || 'Lỗi khi tạo đơn hàng'
+      error: error.response?.data?.message || "Lỗi khi tạo đơn hàng",
     };
   }
 };
@@ -69,20 +69,17 @@ export const createOrder = async (orderData) => {
  */
 export const getUserOrders = async (params = { page: 1, size: 10 }) => {
   try {
-    const response = await axiosInstance.get(
-      '/api/order/my-order',
-      { params }
-    );
+    const response = await axiosInstance.get("/api/order/my-order", { params });
 
     return {
       success: true,
-      data: response.data
+      data: response.data,
     };
   } catch (error) {
-    console.error('Error getting user orders:', error);
+    console.error("Error getting user orders:", error);
     return {
       success: false,
-      error: error.response?.data?.message || 'Lỗi khi lấy danh sách đơn hàng'
+      error: error.response?.data?.message || "Lỗi khi lấy danh sách đơn hàng",
     };
   }
 };
@@ -94,19 +91,17 @@ export const getUserOrders = async (params = { page: 1, size: 10 }) => {
  */
 export const getOrderDetails = async (orderId) => {
   try {
-    const response = await axiosInstance.get(
-      `/api/order/${orderId}`
-    );
+    const response = await axiosInstance.get(`/api/order/${orderId}`);
 
     return {
       success: true,
-      data: response.data
+      data: response.data,
     };
   } catch (error) {
     console.error(`Error getting order details for order ${orderId}:`, error);
     return {
       success: false,
-      error: error.response?.data?.message || 'Lỗi khi lấy chi tiết đơn hàng'
+      error: error.response?.data?.message || "Lỗi khi lấy chi tiết đơn hàng",
     };
   }
 };
@@ -127,13 +122,14 @@ export const updateOrderStatus = async (orderId, statusData) => {
 
     return {
       success: true,
-      data: response.data
+      data: response.data,
     };
   } catch (error) {
     console.error(`Error updating status for order ${orderId}:`, error);
     return {
       success: false,
-      error: error.response?.data?.message || 'Lỗi khi cập nhật trạng thái đơn hàng'
+      error:
+        error.response?.data?.message || "Lỗi khi cập nhật trạng thái đơn hàng",
     };
   }
 };
@@ -144,17 +140,18 @@ export const updateOrderStatus = async (orderId, statusData) => {
  */
 export const getShippingMethods = async () => {
   try {
-    const response = await axiosInstance.get('/api/shipping-methods');
+    const response = await axiosInstance.get("/api/shipping-methods");
 
     return {
       success: true,
-      data: response.data
+      data: response.data,
     };
   } catch (error) {
-    console.error('Error getting shipping methods:', error);
+    console.error("Error getting shipping methods:", error);
     return {
       success: false,
-      error: error.response?.data?.message || 'Lỗi khi lấy phương thức vận chuyển'
+      error:
+        error.response?.data?.message || "Lỗi khi lấy phương thức vận chuyển",
     };
   }
 };
@@ -169,20 +166,21 @@ export const getShippingMethods = async () => {
  */
 export const getShopOrders = async (shopId, params = { page: 1, size: 10 }) => {
   try {
-    const response = await axiosInstance.get(
-      `/api/order/shop/${shopId}`,
-      { params }
-    );
+    const response = await axiosInstance.get(`/api/order/shop/${shopId}`, {
+      params,
+    });
 
     return {
       success: true,
-      data: response.data.data
+      data: response.data.data,
     };
   } catch (error) {
     console.error(`Error getting shop orders for shop ${shopId}:`, error);
     return {
       success: false,
-      error: error.response?.data?.message || 'Lỗi khi lấy danh sách đơn hàng của cửa hàng'
+      error:
+        error.response?.data?.message ||
+        "Lỗi khi lấy danh sách đơn hàng của cửa hàng",
     };
   }
 };
@@ -193,5 +191,5 @@ export default {
   getOrderDetails,
   updateOrderStatus,
   getShippingMethods,
-  getShopOrders
+  getShopOrders,
 };

@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 //import lodash from 'lodash';
 //import config from './config';
 
 const instance = axios.create({
-    baseURL: process.env.REACT_APP_BACKEND_URL,
-    withCredentials: true
+  baseURL: "localhost:3434",
+  withCredentials: true,
 });
 
 // const createError = (httpStatusCode, statusCode, errorMessage, problems, errorCode = '') => {
@@ -66,7 +66,7 @@ let isRefreshing = false;
 let failedQueue = [];
 
 const processQueue = (error, token = null) => {
-  failedQueue.forEach(prom => {
+  failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
     } else {
@@ -79,13 +79,13 @@ const processQueue = (error, token = null) => {
 instance.interceptors.request.use(
   (config) => {
     // Thêm access token vào header nếu có
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (token) {
-      config.headers['Authorization'] = 'Bearer ' + token;
+      config.headers["Authorization"] = "Bearer " + token;
     }
     return config;
   },
-  error => Promise.reject(error)
+  (error) => Promise.reject(error)
 );
 
 instance.interceptors.response.use(
@@ -99,11 +99,11 @@ instance.interceptors.response.use(
         return new Promise(function (resolve, reject) {
           failedQueue.push({ resolve, reject });
         })
-          .then(token => {
-            originalRequest.headers['Authorization'] = 'Bearer ' + token;
+          .then((token) => {
+            originalRequest.headers["Authorization"] = "Bearer " + token;
             return instance(originalRequest);
           })
-          .catch(err => Promise.reject(err));
+          .catch((err) => Promise.reject(err));
       }
 
       originalRequest._retry = true;
@@ -112,15 +112,21 @@ instance.interceptors.response.use(
       // Gọi API refresh token
       return new Promise(function (resolve, reject) {
         axios
-          .post( `${process.env.REACT_APP_BACKEND_URL}/auth/refresh-access-token`, {}, { withCredentials: true })
+          .post(
+            `${"localhost:3434"}/auth/refresh-access-token`,
+            {},
+            { withCredentials: true }
+          )
           .then(({ data }) => {
-            localStorage.setItem('accessToken', data.accessToken);
-            instance.defaults.headers.common['Authorization'] = 'Bearer ' + data.accessToken;
-            originalRequest.headers['Authorization'] = 'Bearer ' + data.accessToken;
+            localStorage.setItem("accessToken", data.accessToken);
+            instance.defaults.headers.common["Authorization"] =
+              "Bearer " + data.accessToken;
+            originalRequest.headers["Authorization"] =
+              "Bearer " + data.accessToken;
             processQueue(null, data.accessToken);
             resolve(instance(originalRequest));
           })
-          .catch(err => {
+          .catch((err) => {
             processQueue(err, null);
             reject(err);
           })

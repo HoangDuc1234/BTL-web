@@ -52,7 +52,7 @@ const HomePage = (props) => {
 
         // Fetch products
         const buildURL = () => {
-          let url = `${process.env.REACT_APP_BACKEND_URL}/api/products?page=${page}`;
+          let url = `${"localhost:3434"}/api/products?page=${page}`;
 
           if (title !== null && title !== "") {
             url += `&title=${title}`;
@@ -83,7 +83,7 @@ const HomePage = (props) => {
             try {
               // Fetch items for this product
               const itemsResponse = await axios.get(
-                `${process.env.REACT_APP_BACKEND_URL}/api/products/item/${product.product_id}`
+                `${"localhost:3434"}/api/products/item/${product.product_id}`
               );
 
               // Check if the response has the expected structure

@@ -6,8 +6,7 @@ import {
   updateUserApi,
   deleteUserApi,
 } from "../../services/adminService";
-const API_URL = process.env.REACT_APP_BACKEND_URL;
-
+const API_URL = "localhost:3434";
 
 export const fetchAllUsersSuccess = (users) => ({
   type: actionTypes.FETCH_USERS_SUCCESS,
@@ -33,7 +32,6 @@ export const fetchAllUsersStart = () => {
     }
   };
 };
-
 
 export const createUserSuccess = () => ({
   type: actionTypes.CREATE_USER_SUCCESS,

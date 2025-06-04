@@ -23,7 +23,7 @@ const ShippingMethodPage = (props) => {
   });
 
   // API URL
-  const API_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3434";
+  const API_URL = "localhost:3434" || "http://localhost:3434";
 
   // Fetch shipping methods
   const fetchShippingMethods = async (

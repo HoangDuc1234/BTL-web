@@ -1,6 +1,6 @@
 // import axios from "axios";
 import axios from "../axios";
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = "localhost:3434";
 
 export const getUserById = (userId) => {
   return axios.get(`${API_URL}/api/user/${userId}`);

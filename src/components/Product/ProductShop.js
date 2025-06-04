@@ -44,7 +44,7 @@ const ProductShop = (props) => {
   const handleProductRemove = async (id) => {
     await LoginHack;
     await axios
-      .delete(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`, {
+      .delete(`${"localhost:3434"}/api/products/${id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
         },
@@ -61,7 +61,7 @@ const ProductShop = (props) => {
     await LoginHack;
     await axios
       .put(
-        `${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`,
+        `${"localhost:3434"}/api/products/${id}`,
         {
           title: productTitle,
           description: productDescription,
@@ -84,7 +84,7 @@ const ProductShop = (props) => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `${process.env.REACT_APP_BACKEND_URL}/api/products/item/${props.product.product_id}`,
+      url: `${"localhost:3434"}/api/products/item/${props.product.product_id}`,
     }).then((response) => {
       setItems(response.data);
       setInfo(response.data[0]);
