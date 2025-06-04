@@ -9,18 +9,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy using ssh
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd ~/services/BTL-web
+            set -e
+            echo "Starting deployment..."
+            cd ~/services/BTL-web || { echo "Directory not found"; exit 1; }
             git fetch origin
             git checkout production
             git pull
+            echo "Building Docker image..."
             docker build -t btlweb .
-            docker stop btlweb || true
+            echo "Stopping old container..."
+            docker stop btlweb-container || true
             docker rm btlweb-container || true
+            echo "Starting new container..."
             docker run -d --name btlweb-container -p 4000:3000 btlweb
+            echo "Deployment completed successfully!"
