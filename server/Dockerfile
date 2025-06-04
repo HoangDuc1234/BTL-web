@@ -2,7 +2,6 @@ FROM node:18
 
 WORKDIR /app
 
-# Fix DNS issues
 
 # Copy package files first
 COPY package*.json ./
