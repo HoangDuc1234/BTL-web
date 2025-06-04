@@ -1,36 +1,39 @@
-# Sử dụng Node.js base image - chọn version LTS ổn định và Alpine cho nhẹ
+# Build stage
 FROM node:18-alpine AS builder
 
-# Đặt thư mục làm việc
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy package.json và package-lock.json (nếu có)
+# Copy package files
 COPY package*.json ./
 
-# Cài đặt dependencies production (quan trọng: --only=production)
-# Sử dụng npm ci để cài đặt chính xác từ package-lock.json, nhanh hơn và an toàn hơn cho build
-RUN npm ci --only=production
+# Install ALL dependencies (including dev dependencies)
+RUN npm install --production=false
 
-# Copy toàn bộ source code ứng dụng vào thư mục làm việc
-# Sử dụng AS builder ở trên để không copy devDependencies vào image cuối
+# Copy source code
 COPY . .
 
-# ------- Image cuối cùng cho Production -------
-FROM node:18-alpine
+# Set NODE_OPTIONS for OpenSSL legacy provider
+ENV NODE_OPTIONS=--openssl-legacy-provider
 
-WORKDIR /usr/src/app
+# Build the application
+RUN npm run build
 
-# Copy dependencies đã cài đặt từ stage builder
-COPY --from=builder /usr/src/app/node_modules ./node_modules
+# Production stage
+FROM node:18-alpine AS production
 
-# Copy source code ứng dụng từ stage builder
-COPY --from=builder /usr/src/app .
+WORKDIR /app
 
-# Expose cổng mà ứng dụng Node.js lắng nghe (bạn cần đặt giá trị này trong .env)
-# Giá trị mặc định là 3000 nếu PORT không được đặt trong .env
-# ENV PORT=3000 # Không cần nếu bạn set trong docker-compose
-EXPOSE ${PORT:-3000}
+# Copy package files
+COPY package*.json ./
 
-# Lệnh chạy ứng dụng khi container khởi động
-# Sử dụng 'node app.js' trực tiếp, KHÔNG dùng 'npm start' vì nó gọi nodemon
-CMD [ "node", "app.js" ]
+# Install only production dependencies
+RUN npm ci --only=production || npm install --only=production
+
+# Copy built app from builder stage
+COPY --from=builder /app/build ./build
+
+EXPOSE 3001
+
+# Use serve to serve static files
+RUN npm install -g serve
+CMD ["serve", "-s", "build", "-l", "3001"]
