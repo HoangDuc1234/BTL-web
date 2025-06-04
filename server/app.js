@@ -30,7 +30,8 @@ app.use(
       "http://localhost:3000",
       "http://127.0.0.1:5500",
       "http://localhost:5500",
-      "http://localhost:8080"
+      "http://localhost:8080",
+      "3.107.79.11:4000",
     ], // Cho phép frontend của bạn
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -66,7 +67,7 @@ app.use("/api/cart", cartAPI);
 app.use("/api/order", orderAPI);
 app.use("/api/shop", shopAPI);
 app.use("/api/address", userAddressAPI);
-app.use("/api/shipping-management/", shippingAPI)
+app.use("/api/shipping-management/", shippingAPI);
 app.use("/api/shipping-methods", shippingMethodAPI);
 
 const PORT = process.env.PORT || 3000;
