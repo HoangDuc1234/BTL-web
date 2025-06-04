@@ -51,11 +51,15 @@ const ItemShop = (props) => {
     // console.log(file);
     await LoginHack;
     await axios
-      .post(`${"3.107.79.11:3434"}/api/utils/store/image/upload`, formData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
-        },
-      })
+      .post(
+        `${"http://3.107.79.11:3434"}/api/utils/store/image/upload`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
+          },
+        }
+      )
       .then(function (response) {
         image_url = response.data.url;
       })
@@ -65,7 +69,9 @@ const ItemShop = (props) => {
     // console.log(image_url);
     await axios
       .post(
-        `${"3.107.79.11:3434"}/api/products/add-item/${props.product_id}`,
+        `${"http://3.107.79.11:3434"}/api/products/add-item/${
+          props.product_id
+        }`,
         {
           price,
           stock,

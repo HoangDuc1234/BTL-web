@@ -6,7 +6,7 @@ import {
   updateUserApi,
   deleteUserApi,
 } from "../../services/adminService";
-const API_URL = "3.107.79.11:3434";
+const API_URL = "http://3.107.79.11:3434";
 
 export const fetchAllUsersSuccess = (users) => ({
   type: actionTypes.FETCH_USERS_SUCCESS,

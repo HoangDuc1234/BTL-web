@@ -29,11 +29,15 @@ const ItemAdd = (props) => {
     // console.log(file);
     await LoginHack;
     await axios
-      .post(`${"3.107.79.11:3434"}/api/utils/store/image/upload`, formData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
-        },
-      })
+      .post(
+        `${"http://3.107.79.11:3434"}/api/utils/store/image/upload`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
+          },
+        }
+      )
       .then(function (response) {
         // Lưu public_id thay vì URL
         image_url = response.data.public_id;
@@ -44,7 +48,9 @@ const ItemAdd = (props) => {
     // console.log("Public ID:", image_url);
     await axios
       .post(
-        `${"3.107.79.11:3434"}/api/products/add-item/${props.product_id}`,
+        `${"http://3.107.79.11:3434"}/api/products/add-item/${
+          props.product_id
+        }`,
         {
           price,
           stock,

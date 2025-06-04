@@ -52,7 +52,7 @@ const HomePage = (props) => {
 
         // Fetch products
         const buildURL = () => {
-          let url = `${"3.107.79.11:3434"}/api/products?page=${page}`;
+          let url = `${"http://3.107.79.11:3434"}/api/products?page=${page}`;
 
           if (title !== null && title !== "") {
             url += `&title=${title}`;
@@ -83,7 +83,9 @@ const HomePage = (props) => {
             try {
               // Fetch items for this product
               const itemsResponse = await axios.get(
-                `${"3.107.79.11:3434"}/api/products/item/${product.product_id}`
+                `${"http://3.107.79.11:3434"}/api/products/item/${
+                  product.product_id
+                }`
               );
 
               // Check if the response has the expected structure

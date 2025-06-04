@@ -2,10 +2,6 @@ FROM node:18
 
 WORKDIR /app
 
-# Fix DNS issues
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
-RUN echo "nameserver 8.8.4.4" >> /etc/resolv.conf
-
 # Copy package files first
 COPY package*.json ./
 

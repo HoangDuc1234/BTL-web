@@ -24,7 +24,7 @@ const ProductAdd = (props) => {
     await LoginHack;
     await axios
       .post(
-        `${"3.107.79.11:3434"}/api/products/create`,
+        `${"http://3.107.79.11:3434"}/api/products/create`,
         {
           title: productDetails.title,
           shop_id: props.shop_id,
