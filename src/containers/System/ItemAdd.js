@@ -29,7 +29,7 @@ const ItemAdd = (props) => {
     // console.log(file);
     await LoginHack;
     await axios
-      .post(`${"localhost:3434"}/api/utils/store/image/upload`, formData, {
+      .post(`${"3.107.79.11:3434"}/api/utils/store/image/upload`, formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
         },
@@ -44,7 +44,7 @@ const ItemAdd = (props) => {
     // console.log("Public ID:", image_url);
     await axios
       .post(
-        `${"localhost:3434"}/api/products/add-item/${props.product_id}`,
+        `${"3.107.79.11:3434"}/api/products/add-item/${props.product_id}`,
         {
           price,
           stock,
