@@ -1,7 +1,7 @@
 // src/services/productService.js
 // import axios from 'axios';
 import axios from "../axios";
-const API_URL = "https://16.176.227.107:3434";
+const API_URL = "http://16.176.227.107:3434";
 
 // Lấy tất cả sản phẩm (có phân trang)
 export const getAllProducts = (page = 1, size = 10, title = "") => {

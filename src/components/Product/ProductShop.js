@@ -44,7 +44,7 @@ const ProductShop = (props) => {
   const handleProductRemove = async (id) => {
     await LoginHack;
     await axios
-      .delete(`${"https://16.176.227.107:3434"}/api/products/${id}`, {
+      .delete(`${"http://16.176.227.107:3434"}/api/products/${id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
         },
@@ -61,7 +61,7 @@ const ProductShop = (props) => {
     await LoginHack;
     await axios
       .put(
-        `${"https://16.176.227.107:3434"}/api/products/${id}`,
+        `${"http://16.176.227.107:3434"}/api/products/${id}`,
         {
           title: productTitle,
           description: productDescription,
@@ -84,7 +84,7 @@ const ProductShop = (props) => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `${"https://16.176.227.107:3434"}/api/products/item/${
+      url: `${"http://16.176.227.107:3434"}/api/products/item/${
         props.product.product_id
       }`,
     }).then((response) => {
