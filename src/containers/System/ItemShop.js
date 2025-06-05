@@ -52,7 +52,7 @@ const ItemShop = (props) => {
     await LoginHack;
     await axios
       .post(
-        `${"http://3.107.79.11:3434"}/api/utils/store/image/upload`,
+        `${"http://3.25.70.223:3434"}/api/utils/store/image/upload`,
         formData,
         {
           headers: {
@@ -69,7 +69,7 @@ const ItemShop = (props) => {
     // console.log(image_url);
     await axios
       .post(
-        `${"http://3.107.79.11:3434"}/api/products/add-item/${
+        `${"http://3.25.70.223:3434"}/api/products/add-item/${
           props.product_id
         }`,
         {

@@ -1,6 +1,6 @@
 // import axios from 'axios';
 import axios from "../axios";
-const API_URL = "http://3.107.79.11:3434" || "http://localhost:3434";
+const API_URL = "http://3.25.70.223:3434" || "http://localhost:3434";
 
 /**
  * Upload an image file to the server

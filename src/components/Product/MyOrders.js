@@ -13,7 +13,7 @@ const MyOrder = (props) => {
       let fetchOrder;
       await LoginHack;
       await axios
-        .get(`${"http://3.107.79.11:3434"}/api/order/my-order`, {
+        .get(`${"http://3.25.70.223:3434"}/api/order/my-order`, {
           headers: {
             Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
           },
