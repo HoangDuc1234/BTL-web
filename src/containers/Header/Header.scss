@@ -20,7 +20,9 @@ $box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   position: relative;
 
   .header-tabs-container {
-    flex-grow: 0.05;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
   }
 
   .header-right-content {

@@ -158,6 +158,9 @@ class Header extends Component {
       ).toString("binary");
     }
 
+    console.log("Header render - menuApp:", this.state.menuApp);
+    console.log("Header render - userInfo:", userInfo);
+
     return (
       <div className="header-container">
         <div className="header-tabs-container">
