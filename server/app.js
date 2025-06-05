@@ -31,7 +31,7 @@ app.use(
       "http://127.0.0.1:5500",
       "http://localhost:5500",
       "http://localhost:8080",
-      "http://16.176.227.107:3000",
+      "http://16.176.227.107:3434",
       "http://16.176.227.107:4000",
     ], // Cho phép frontend của bạn
     methods: ["GET", "POST", "PUT", "DELETE"],
