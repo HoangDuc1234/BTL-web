@@ -3,7 +3,7 @@ import store from "../redux";
 // import axios from "../axios";
 import { updateUserInfo } from "../store/actions/adminActions";
 
-const API_URL = "http://13.211.159.84:3434";
+const API_URL = "http://16.176.227.107:3000";
 
 // Helper function to get the access token from Redux state
 const getAccessTokenFromRedux = () => {
