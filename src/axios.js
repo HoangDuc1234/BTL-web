@@ -3,12 +3,7 @@ import axios from "axios";
 //import config from './config';
 
 const instance = axios.create({
-  baseURL: () => {
-    if (process.env.NODE_ENV === "production") {
-      return `${window.location.protocol}//${window.location.hostname}:3434`;
-    }
-    return "http://localhost:3434";
-  },
+  baseURL: "http://13.211.159.84:3434",
   withCredentials: true,
 });
 
@@ -118,12 +113,7 @@ instance.interceptors.response.use(
       return new Promise(function (resolve, reject) {
         axios
           .post(
-            `${() => {
-              if (process.env.NODE_ENV === "production") {
-                return `${window.location.protocol}//${window.location.hostname}:3434`;
-              }
-              return "http://localhost:3434";
-            }}/auth/refresh-access-token`,
+            `${"http://13.211.159.84:3434"}/auth/refresh-access-token`,
             {},
             { withCredentials: true }
           )

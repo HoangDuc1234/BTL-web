@@ -13,19 +13,11 @@ const MyOrder = (props) => {
       let fetchOrder;
       await LoginHack;
       await axios
-        .get(
-          `${() => {
-            if (process.env.NODE_ENV === "production") {
-              return `${window.location.protocol}//${window.location.hostname}:3434`;
-            }
-            return "http://localhost:3434";
-          }}/api/order/my-order`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
-            },
-          }
-        )
+        .get(`${"http://13.211.159.84:3434"}/api/order/my-order`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
+          },
+        })
         .then((res) => {
           fetchOrder = res.data.products;
         })

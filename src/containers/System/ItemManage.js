@@ -21,12 +21,7 @@ const ItemManage = (props) => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `${() => {
-        if (process.env.NODE_ENV === "production") {
-          return `${window.location.protocol}//${window.location.hostname}:3434`;
-        }
-        return "http://localhost:3434";
-      }}/api/products/item/${product_id}`,
+      url: `${"http://13.211.159.84:3434"}/api/products/item/${product_id}`,
     }).then((response) => {
       if (isMountedRef.current) {
         response && setItems(response.data);

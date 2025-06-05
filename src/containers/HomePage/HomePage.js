@@ -52,12 +52,7 @@ const HomePage = (props) => {
 
         // Fetch products
         const buildURL = () => {
-          let url = `${() => {
-            if (process.env.NODE_ENV === "production") {
-              return `${window.location.protocol}//${window.location.hostname}:3434`;
-            }
-            return "http://localhost:3434";
-          }}/api/products?page=${page}`;
+          let url = `${"http://13.211.159.84:3434"}/api/products?page=${page}`;
 
           if (title !== null && title !== "") {
             url += `&title=${title}`;
@@ -88,12 +83,9 @@ const HomePage = (props) => {
             try {
               // Fetch items for this product
               const itemsResponse = await axios.get(
-                `${() => {
-                  if (process.env.NODE_ENV === "production") {
-                    return `${window.location.protocol}//${window.location.hostname}:3434`;
-                  }
-                  return "http://localhost:3434";
-                }}/api/products/item/${product.product_id}`
+                `${"http://13.211.159.84:3434"}/api/products/item/${
+                  product.product_id
+                }`
               );
 
               // Check if the response has the expected structure

@@ -1,12 +1,7 @@
 import axios from "axios";
 import store from "../redux";
 
-const API_URL = () => {
-  if (process.env.NODE_ENV === "production") {
-    return `${window.location.protocol}//${window.location.hostname}:3434`;
-  }
-  return "http://localhost:3434";
-};
+const API_URL = "http://13.211.159.84:3434";
 
 // Helper function to get the access token from Redux state
 const getAccessTokenFromRedux = () => {

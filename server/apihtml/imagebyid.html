@@ -34,7 +34,7 @@
       async function loadImage(publicId) {
         try {
           const res = await fetch(
-            `http://localhost:3434/api/utils/store/image/${publicId}`
+            `http://13.211.159.84:3434/api/utils/store/image/${publicId}`
           );
           const data = await res.json();
           if (data.url) {
@@ -58,7 +58,7 @@
 
         // Gửi POST /store/image/upload
         const res = await fetch(
-          `http://localhost:3434/api/utils/store/image/upload`,
+          `http://13.211.159.84:3434/api/utils/store/image/upload`,
           { method: "POST", body: fd }
         );
         const result = await res.json();

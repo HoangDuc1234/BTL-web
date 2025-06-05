@@ -32,18 +32,8 @@ const ProductManage = (props) => {
       method: "get",
       url:
         title !== null
-          ? `${() => {
-              if (process.env.NODE_ENV === "production") {
-                return `${window.location.protocol}//${window.location.hostname}:3434`;
-              }
-              return "http://localhost:3434";
-            }}/api/products?page=${page}&title=${title}`
-          : `${() => {
-              if (process.env.NODE_ENV === "production") {
-                return `${window.location.protocol}//${window.location.hostname}:3434`;
-              }
-              return "http://localhost:3434";
-            }}/api/products?page=${page}`,
+          ? `${"http://13.211.159.84:3434"}/api/products?page=${page}&title=${title}`
+          : `${"http://13.211.159.84:3434"}/api/products?page=${page}`,
     }).then((response) => {
       setProducts(response.data.products);
       // console.log(response);
