@@ -61,24 +61,43 @@ class Header extends Component {
 
     if (userInfo && !_.isEmpty(userInfo)) {
       this.props.fetchUserDetail(userInfo.userId);
+
+      // Set menu ngay lập tức dựa trên role trong userInfo
+      this.setMenuByRole(userInfo.role);
     }
   }
 
+  setMenuByRole = (role) => {
+    let menu = [];
+    console.log("Setting menu for role:", role);
+
+    if (role === "admin") {
+      menu = adminMenu;
+    } else if (role === "seller") {
+      menu = sellerMenu;
+    } else if (role === "buyer") {
+      menu = buyerMenu;
+    }
+
+    console.log("Menu set to:", menu);
+    this.setState({ menuApp: menu });
+  };
+
   componentDidUpdate(prevProps) {
+    // Kiểm tra khi userInfo thay đổi (login mới)
+    if (prevProps.userInfo !== this.props.userInfo) {
+      let userInfo = this.props.userInfo;
+      if (userInfo && !_.isEmpty(userInfo)) {
+        this.props.fetchUserDetail(userInfo.userId);
+        this.setMenuByRole(userInfo.role);
+      }
+    }
+
+    // Kiểm tra khi userDetail thay đổi
     if (prevProps.userDetail !== this.props.userDetail) {
       if (this.props.userDetail && this.props.userDetail.userInfo) {
         let userRole = this.props.userDetail.userInfo.role;
-        let menu = [];
-
-        if (userRole === "admin") {
-          menu = adminMenu;
-        } else if (userRole === "seller") {
-          menu = sellerMenu;
-        } else if (userRole === "buyer") {
-          menu = buyerMenu;
-        }
-
-        this.setState({ menuApp: menu });
+        this.setMenuByRole(userRole);
       }
     }
   }
