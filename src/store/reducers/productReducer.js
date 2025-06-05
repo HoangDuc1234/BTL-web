@@ -10,7 +10,12 @@ const productReducer = async (state = initialState, action) => {
       let products;
       await axios({
         method: "get",
-        url: `${"http://3.25.70.223:3434"}/api/products?page=1`,
+        url: `${() => {
+          if (process.env.NODE_ENV === "production") {
+            return `${window.location.protocol}//${window.location.hostname}:3434`;
+          }
+          return "http://localhost:3434";
+        }}/api/products?page=1`,
         responseType: "stream",
       }).then(function (response) {
         // console.log(response.data);

@@ -30,7 +30,12 @@ const ItemAdd = (props) => {
     await LoginHack;
     await axios
       .post(
-        `${"http://3.25.70.223:3434"}/api/utils/store/image/upload`,
+        `${() => {
+          if (process.env.NODE_ENV === "production") {
+            return `${window.location.protocol}//${window.location.hostname}:3434`;
+          }
+          return "http://localhost:3434";
+        }}/api/utils/store/image/upload`,
         formData,
         {
           headers: {
@@ -48,9 +53,12 @@ const ItemAdd = (props) => {
     // console.log("Public ID:", image_url);
     await axios
       .post(
-        `${"http://3.25.70.223:3434"}/api/products/add-item/${
-          props.product_id
-        }`,
+        `${() => {
+          if (process.env.NODE_ENV === "production") {
+            return `${window.location.protocol}//${window.location.hostname}:3434`;
+          }
+          return "http://localhost:3434";
+        }}/api/products/add-item/${props.product_id}`,
         {
           price,
           stock,

@@ -24,7 +24,12 @@ const ProductAdd = (props) => {
     await LoginHack;
     await axios
       .post(
-        `${"http://3.25.70.223:3434"}/api/products/create`,
+        `${() => {
+          if (process.env.NODE_ENV === "production") {
+            return `${window.location.protocol}//${window.location.hostname}:3434`;
+          }
+          return "http://localhost:3434";
+        }}/api/products/create`,
         {
           title: productDetails.title,
           shop_id: props.shop_id,

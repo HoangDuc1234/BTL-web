@@ -6,7 +6,12 @@ import {
   updateUserApi,
   deleteUserApi,
 } from "../../services/adminService";
-const API_URL = "http://3.25.70.223:3434";
+const API_URL = () => {
+  if (process.env.NODE_ENV === "production") {
+    return `${window.location.protocol}//${window.location.hostname}:3434`;
+  }
+  return "http://localhost:3434";
+};
 
 export const fetchAllUsersSuccess = (users) => ({
   type: actionTypes.FETCH_USERS_SUCCESS,

@@ -44,11 +44,19 @@ const ProductShop = (props) => {
   const handleProductRemove = async (id) => {
     await LoginHack;
     await axios
-      .delete(`${"http://3.25.70.223:3434"}/api/products/${id}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
-        },
-      })
+      .delete(
+        `${() => {
+          if (process.env.NODE_ENV === "production") {
+            return `${window.location.protocol}//${window.location.hostname}:3434`;
+          }
+          return "http://localhost:3434";
+        }}/api/products/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // Thêm accessToken vào header
+          },
+        }
+      )
       .then(function (response) {
         // console.log(response);
       })
@@ -61,7 +69,12 @@ const ProductShop = (props) => {
     await LoginHack;
     await axios
       .put(
-        `${"http://3.25.70.223:3434"}/api/products/${id}`,
+        `${() => {
+          if (process.env.NODE_ENV === "production") {
+            return `${window.location.protocol}//${window.location.hostname}:3434`;
+          }
+          return "http://localhost:3434";
+        }}/api/products/${id}`,
         {
           title: productTitle,
           description: productDescription,
@@ -84,9 +97,12 @@ const ProductShop = (props) => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `${"http://3.25.70.223:3434"}/api/products/item/${
-        props.product.product_id
-      }`,
+      url: `${() => {
+        if (process.env.NODE_ENV === "production") {
+          return `${window.location.protocol}//${window.location.hostname}:3434`;
+        }
+        return "http://localhost:3434";
+      }}/api/products/item/${props.product.product_id}`,
     }).then((response) => {
       setItems(response.data);
       setInfo(response.data[0]);

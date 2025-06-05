@@ -1,6 +1,11 @@
 // import axios from 'axios';
 import axios from "../axios";
-const API_URL = "http://3.25.70.223:3434" || "http://localhost:3434";
+const API_URL = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return `${window.location.protocol}//${window.location.hostname}:3434`;
+  }
+  return 'http://localhost:3434';
+} || "http://localhost:3434";
 
 /**
  * Upload an image file to the server
