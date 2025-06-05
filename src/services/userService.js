@@ -3,11 +3,11 @@ import axios from "../axios";
 const API_URL = "";
 
 export const getUserById = (userId) => {
-  return axios.get(`${API_URL}/api/user/${userId}`);
+  return axios.get(`${API_URL}/user/${userId}`);
 };
 
 export const updateUserDetail = (userId, userData) => {
-  return axios.put(`${API_URL}/api/user/detail/${userId}`, userData);
+  return axios.put(`${API_URL}/user/detail/${userId}`, userData);
 };
 
 export const handleLoginApi = (username, password) => {
