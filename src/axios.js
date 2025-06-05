@@ -3,7 +3,7 @@ import axios from "axios";
 //import config from './config';
 
 const instance = axios.create({
-  baseURL: "http://16.176.227.107:3434",
+  baseURL: "/api",
   withCredentials: true,
 });
 
@@ -113,7 +113,7 @@ instance.interceptors.response.use(
       return new Promise(function (resolve, reject) {
         axios
           .post(
-            `${"http://16.176.227.107:3434"}/auth/refresh-access-token`,
+            `${""}/auth/refresh-access-token`,
             {},
             { withCredentials: true }
           )

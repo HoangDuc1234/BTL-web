@@ -23,7 +23,7 @@ const ShippingMethodPage = (props) => {
   });
 
   // API URL
-  const API_URL = "http://16.176.227.107:3434";
+  const API_URL = "";
 
   // Fetch shipping methods
   const fetchShippingMethods = async (

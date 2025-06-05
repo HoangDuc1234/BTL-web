@@ -1,6 +1,6 @@
 // import axios from 'axios';
 import axios from "../axios";
-const API_URL = "http://16.176.227.107:3434";
+const API_URL = "";
 
 /**
  * Upload an image file to the server
