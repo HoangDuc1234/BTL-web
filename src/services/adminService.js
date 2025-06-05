@@ -1,6 +1,6 @@
 // import axios from "axios";
 import axios from "../axios";
-const API_URL = ;
+const API_URL = "https://16.176.227.107:3434";
 
 export const fetchAllUsersApi = () => {
   return axios.get(`${API_URL}/api/user`);
