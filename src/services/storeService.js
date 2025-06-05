@@ -99,7 +99,7 @@ export const deleteImage = async (publicId) => {
 export const listImages = async (folder = "uploads") => {
   try {
     const response = await axios.get(
-      `${API_URL}/api/utils/store/image/list?folder=${folder}`
+      `${API_URL}/utils/store/image/list?folder=${folder}`
     );
 
     return {
