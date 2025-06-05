@@ -34,6 +34,7 @@ app.use(
       "http://3.107.79.11:4000",
       "http://localhost:3434",
       "http://13.211.159.84:4000",
+      "http://13.211.159.84:3000",
     ], // Cho phép frontend của bạn
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
