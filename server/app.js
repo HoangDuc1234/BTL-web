@@ -34,7 +34,11 @@ app.use(
       "http://16.176.227.107:3434",
       "http://16.176.227.107:4000",
       "http://16.176.227.107:80",
+      "https://16.176.227.107",
       "http://16.176.227.107",
+      "http://hduc.site",
+      "https://hduc.site",
+      "http://hduc.site:3000",
     ], // Cho phép frontend của bạn
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

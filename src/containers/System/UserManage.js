@@ -26,6 +26,7 @@ class UserManage extends Component {
       isShowConfirmModal: false,
       userToDelete: {},
     };
+    this.timeoutIds = [];
   }
 
   componentDidMount() {
@@ -34,11 +35,19 @@ class UserManage extends Component {
 
     // Fetch users data
     this.props.fetchAllUsers();
+  }
 
-    // Simulate loading for 1.5 seconds
-    setTimeout(() => {
+  componentDidUpdate(prevProps) {
+    // Tắt loading khi dữ liệu users đã được load xong
+    if (prevProps.users !== this.props.users && this.props.users) {
       this.setState({ isLoading: false });
-    }, 600);
+    }
+  }
+
+  componentWillUnmount() {
+    // Clear all timeouts to prevent memory leaks
+    this.timeoutIds.forEach((timeoutId) => clearTimeout(timeoutId));
+    this.timeoutIds = [];
   }
 
   handleAddNewUser = () => {
@@ -51,12 +60,20 @@ class UserManage extends Component {
     this.setState({
       isOpenModalUser: !this.state.isOpenModalUser,
     });
+    // Reload trang sau khi đóng modal (có thể đã thêm user mới)
+    if (this.state.isOpenModalUser) {
+      window.location.reload();
+    }
   };
 
   toggleUserEditModal = () => {
     this.setState({
       isOpenModalEditUser: !this.state.isOpenModalEditUser,
     });
+    // Reload trang sau khi đóng modal edit (có thể đã sửa user)
+    if (this.state.isOpenModalEditUser) {
+      window.location.reload();
+    }
   };
 
   handleEditUser = (user) => {
@@ -91,7 +108,7 @@ class UserManage extends Component {
     let res = await this.props.deleteUser(user.user_id);
 
     // Giữ loading spinner trong 1.5 giây
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       this.setState({ isLoading: false });
 
       if (res && res.success) {
@@ -104,6 +121,8 @@ class UserManage extends Component {
           pauseOnHover: true,
           draggable: true,
         });
+        // Reload trang sau khi xóa thành công
+        window.location.reload();
       } else {
         // Hiển thị thông báo lỗi với Toast
         toast.error(res.message, {
@@ -116,6 +135,7 @@ class UserManage extends Component {
         });
       }
     }, 600);
+    this.timeoutIds.push(timeoutId);
   };
 
   openLightbox = (imageUrl) => {
