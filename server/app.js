@@ -33,6 +33,8 @@ app.use(
       "http://localhost:8080",
       "http://16.176.227.107:3434",
       "http://16.176.227.107:4000",
+      "http://16.176.227.107:80",
+      "http://16.176.227.107",
     ], // Cho phép frontend của bạn
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
