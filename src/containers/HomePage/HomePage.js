@@ -52,7 +52,7 @@ const HomePage = (props) => {
 
         // Fetch products
         const buildURL = () => {
-          let url = `${"http://16.176.227.107:3434"}/api/products?page=${page}`;
+          let url = `${"https://16.176.227.107:3434"}/api/products?page=${page}`;
 
           if (title !== null && title !== "") {
             url += `&title=${title}`;
@@ -83,7 +83,7 @@ const HomePage = (props) => {
             try {
               // Fetch items for this product
               const itemsResponse = await axios.get(
-                `${"http://16.176.227.107:3434"}/api/products/item/${
+                `${"https://16.176.227.107:3434"}/api/products/item/${
                   product.product_id
                 }`
               );

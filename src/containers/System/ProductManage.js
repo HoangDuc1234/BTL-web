@@ -32,8 +32,8 @@ const ProductManage = (props) => {
       method: "get",
       url:
         title !== null
-          ? `${"http://16.176.227.107:3434"}/api/products?page=${page}&title=${title}`
-          : `${"http://16.176.227.107:3434"}/api/products?page=${page}`,
+          ? `${"https://16.176.227.107:3434"}/api/products?page=${page}&title=${title}`
+          : `${"https://16.176.227.107:3434"}/api/products?page=${page}`,
     }).then((response) => {
       setProducts(response.data.products);
       // console.log(response);
